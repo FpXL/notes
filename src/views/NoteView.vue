@@ -60,9 +60,7 @@ const handleTodoClick = (id: number) => {
   if (note) toggleTodo(note.id, id)
 }
 const handleDeleteClick = async () => {
-  if (note) await deleteNote(note.id)
-
-  router.push({ name: 'home' })
+  if (note) deleteNote(note.id).then(() => router.push({ name: 'home' })).catch(() => {})
 }
 </script>
 

@@ -84,24 +84,4 @@ const displayedTodos = note.todos
 .note-list-item__buttons {
   display: none;
 }
-
-/* .note-list-item__edit,
-.note-list-item__delete {
-    cursor: pointer;
-    padding: 0 10px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 4px;
-}
-
-.note-list-item__edit {
-    color: white;
-    background-color: #5555dd;
-}
-
-.note-list-item__delete {
-    color: white;
-    background-color: red;
-} */
 </style>

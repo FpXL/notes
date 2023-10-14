@@ -19,9 +19,13 @@ export function useNotes() {
   const deleteNote = async (id: number) => {
     const note = store.notes.find((note) => note.id === id)
 
-    if (note && confirm(`Удалить заметку "${note.name}"?`)) store.deleteNote(id)
+    if (note && confirm(`Удалить заметку "${note.name}"?`)) {
+      store.deleteNote(id)
 
-    return Promise.resolve()
+      return Promise.resolve()
+    }
+
+    return Promise.reject()
   }
 
   return {
