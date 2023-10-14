@@ -15,7 +15,7 @@ export function useNoteForm(note?: Note) {
     isFinished: false
   })
 
-  ;[0, 1, 2].slice(-1 * noteForm.todos.length).forEach((i) => noteForm.todos.push(makeTodo('', i)))
+  ;[0, 1, 2].slice(noteForm.todos.length).forEach((i) => noteForm.todos.push(makeTodo('', i)))
 
   watch(
     noteForm,
