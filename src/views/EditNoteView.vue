@@ -28,46 +28,18 @@
 <script setup lang="ts">
 import NLink from '@/components/ui/link/NLink.vue'
 import IconHome from '@/components/icons/IconHome.vue'
-import { reactive, watch, computed } from 'vue'
-import type { Todo } from '@/types'
-import { useNotesStore } from '@/stores/notes'
+
 import router from '@/router'
 
-const queryId = router.currentRoute.value.query.id?.toString()
+import { useNotesStore } from '@/stores/notes'
+import { useNoteForm } from '@/composables/NoteForm'
 
 const { addNote, filteredNotes, updateNote } = useNotesStore()
 
+const queryId = router.currentRoute.value.query.id?.toString()
+
 const note = filteredNotes.find((note) => note.id.toString() === queryId)
-
-const makeTodo = (text: string, id: number): Todo => ({
-  text,
-  id,
-  createdAt: Date.now(),
-  isFinished: false
-})
-
-const noteForm: { name: string; todos: Todo[] } = reactive({
-  name: '',
-  todos: []
-})
-
-if (note) {
-  noteForm.name = note.name
-  noteForm.todos = note.todos.slice()
-} else {
-  ;[0, 1, 2].forEach((i) => noteForm.todos.push(makeTodo('', i)))
-}
-
-watch(
-  noteForm,
-  ({ todos }) => {
-    if (todos.filter(({ text }) => text).length === todos.length)
-      noteForm.todos.push(makeTodo('', todos.length))
-  },
-  { immediate: true }
-)
-
-const isValid = computed(() => !!noteForm.name)
+const { noteForm, isValid } = useNoteForm(note)
 
 const submitNote = () => {
   if (!isValid.value) {
